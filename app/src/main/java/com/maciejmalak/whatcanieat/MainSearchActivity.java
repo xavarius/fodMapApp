@@ -12,6 +12,11 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
+import list.FoodAdapter;
+import list.FoodPojo;
+
 public class MainSearchActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -31,14 +36,14 @@ public class MainSearchActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        final String[] modelData = new String[] {"First", "Second", "Third"};
+        final ArrayList<FoodPojo> list = new ArrayList<>();
+        list.add(new FoodPojo("Banan", "Owoc", false));
+        list.add(new FoodPojo("Gruszka", "Owoc", true));
+        list.add(new FoodPojo("Cebula", "Warzywo", false));
 
-        final ArrayAdapter adapter =
-                new ArrayAdapter(this, android.R.layout.simple_list_item_1,
-                                 android.R.id.text1, modelData);
-
+        final FoodAdapter foodAdapter = new FoodAdapter(this, list);
         final ListView listView = (ListView) findViewById(R.id.food_list);
-        listView.setAdapter(adapter);
+        listView.setAdapter(foodAdapter);
     }
 
     @Override

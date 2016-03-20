@@ -1,4 +1,4 @@
-package model;
+package list;
 
 public class FoodPojo {
     private String mName;
@@ -7,7 +7,7 @@ public class FoodPojo {
 
     private FoodPojo() {}
 
-    private FoodPojo(final String name, final String category, final boolean isAllowed) {
+    public FoodPojo(final String name, final String category, final boolean isAllowed) {
         mName = name;
         mCategory = category;
         mIsAllowed = isAllowed;
