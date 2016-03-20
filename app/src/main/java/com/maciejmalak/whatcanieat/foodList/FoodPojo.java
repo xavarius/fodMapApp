@@ -1,4 +1,4 @@
-package list;
+package com.maciejmalak.whatcanieat.foodList;
 
 public class FoodPojo {
     private String mName;

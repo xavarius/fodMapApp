@@ -1,4 +1,4 @@
-package list;
+package com.maciejmalak.whatcanieat.foodList;
 
 import android.content.Context;
 import android.view.LayoutInflater;
