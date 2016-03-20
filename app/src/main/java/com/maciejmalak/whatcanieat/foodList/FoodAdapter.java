@@ -22,9 +22,9 @@ public class FoodAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = getItemView(parent.getContext(), parent, convertView);
         final ViewHolder viewHolder = (ViewHolder) convertView.getTag();
-        final FoodPojo item = (FoodPojo) getItem(position);
+        final FoodPojo foodItem = (FoodPojo) getItem(position);
 
-        viewHolder.mTextView.setText(item.getName());
+        viewHolder.mTextView.setText(foodItem.getName());
 
         return convertView;
     }
