@@ -3,14 +3,21 @@ package com.maciejmalak.whatcanieat.foodList;
 public class FoodPojo {
     private String mName;
     private String mCategory;
-    private boolean mIsAllowed;
+    private Short mIsAllowed;
 
     private FoodPojo() {}
 
-    public FoodPojo(final String name, final String category, final boolean isAllowed) {
+    public FoodPojo(final String name, final String category,
+                    final String isAllowed, final String desc) {
         mName = name;
         mCategory = category;
-        mIsAllowed = isAllowed;
+        if (isAllowed.equals("Forbidden")) {
+            mIsAllowed = -1;
+        } else if (isAllowed.equals("Restricted")) {
+            mIsAllowed = 0;
+        } else {
+            mIsAllowed = 1;
+        }
     }
 
     public String getName() {
@@ -21,7 +28,7 @@ public class FoodPojo {
         return mCategory;
     }
 
-    public boolean isAllowed() {
+    public Short isAllowed() {
         return mIsAllowed;
     }
 }

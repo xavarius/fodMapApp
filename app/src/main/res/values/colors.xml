@@ -6,4 +6,5 @@
 
     <color name="allowedFood">#04991a</color>
     <color name="disallowedFood">#b9121a</color>
+    <color name="restrictedFood">#d9af07</color>
 </resources>
