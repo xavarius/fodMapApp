@@ -29,8 +29,16 @@ import java.util.Comparator;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/* TODO: Jeśli dodasz ProGuard dodaj wyjątek dla ButterKnife */
+/*TODO: Ikona lupki ładna*/
+/*TODO: Żeby było widać co user powiedział w searchView i może w dialogu recognition (search confy?) */
+/*TODO: strings in EN i PL */
 /* TODO: Kolory w Drawer*/
+/*TODO: Stworzyć, wypełnić, obsłużyć DB*/
+/*TODO: Filtrowanie wyników w czasie rzeczywistym: pokazujemy wszystkie zawierające daną frazę? !!!*/
+/*TODO: Wymyśleć co z 2x aktywność: coś o diecie fodmap oraz about krótkie */
+/* TODO: Jeśli dodasz ProGuard dodaj wyjątek dla ButterKnife */
+/*TODO: Ikona appki*/
+/*TODO: Może jakieś śmieszne ikony do Drawera np zamiast lupki marchewka przy Search food etc. */
 
 public class MainSearchActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
