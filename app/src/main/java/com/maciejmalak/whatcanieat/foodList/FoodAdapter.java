@@ -54,7 +54,9 @@ public class FoodAdapter extends ArrayAdapter {
             final ViewHolder viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
 
-            if(mAllowedIndicator == null || mDisallowedIndicator == null) {
+            /*Bind only once. */
+            if(mAllowedIndicator == null || mDisallowedIndicator == null
+                    || mRestrictedIndicator == null) {
                 ButterKnife.bind(this, convertView);
             }
         }

@@ -1,5 +1,9 @@
 package com.maciejmalak.whatcanieat.activities;
 
+import android.app.SearchManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -26,6 +30,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /* TODO: Jeśli dodasz ProGuard dodaj wyjątek dla ButterKnife */
+/* TODO: Kolory w Drawer*/
 
 public class MainSearchActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,12 +38,13 @@ public class MainSearchActivity extends AppCompatActivity
     @Bind(R.id.toolbar) protected Toolbar mToolbar;
     @Bind(R.id.drawer_layout) protected DrawerLayout mDrawer;
     @Bind(R.id.nav_view) protected NavigationView mNavigationView;
+
     private SearchView searchView;
 
     private final SearchView.OnQueryTextListener onQueryTextListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
-            Log.d("maciek   " , query);
+            /*It's supported in onNewIntent */
             return false;
         }
 
@@ -61,12 +67,49 @@ public class MainSearchActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.search_toolbar);
+        final MenuItem searchItem = menu.findItem(R.id.search_toolbar);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(onQueryTextListener);
+
+        final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        final ComponentName name = getComponentName();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(name));
+
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+            mDrawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        final int id = item.getItemId();
+
+        mDrawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        handleIntents(intent);
+    }
+
+    private void handleIntents(final Intent intent) {
+        if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            final String query = intent.getStringExtra(SearchManager.QUERY);
+            Log.d("maciek   ", "heheh:    " + query);
+        }
     }
 
     private void initDefaultViews() {
@@ -469,24 +512,5 @@ public class MainSearchActivity extends AppCompatActivity
         final FoodAdapter foodAdapter = new FoodAdapter(this, list);
         final ListView listView = (ListView) findViewById(R.id.food_list);
         listView.setAdapter(foodAdapter);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
-            mDrawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        final int id = item.getItemId();
-
-        mDrawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }

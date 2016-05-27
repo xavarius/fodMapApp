@@ -4,4 +4,5 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="search_menu_item">Search</string>
+    <string name="search_hint">Search for food and drinks</string>
 </resources>
