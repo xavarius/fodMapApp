@@ -3,10 +3,14 @@ package com.maciejmalak.whatcanieat.activities;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
@@ -29,19 +33,43 @@ public class MainSearchActivity extends AppCompatActivity
     @Bind(R.id.toolbar) protected Toolbar mToolbar;
     @Bind(R.id.drawer_layout) protected DrawerLayout mDrawer;
     @Bind(R.id.nav_view) protected NavigationView mNavigationView;
+    private SearchView searchView;
+
+    private final SearchView.OnQueryTextListener onQueryTextListener = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            Log.d("maciek   " , query);
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            Log.d("maciek 2  " , newText);
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_search);
         ButterKnife.bind(this);
+        setSupportActionBar(mToolbar);
 
         initDefaultViews();
         initListView();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.search_toolbar);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(onQueryTextListener);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     private void initDefaultViews() {
-        setSupportActionBar(mToolbar);
 
         final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar,
                 R.string.navigation_drawer_open,

@@ -8,20 +8,8 @@
     tools:context=".activities.MainSearchActivity"
     tools:showIn="@layout/app_bar_main_search">
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="56dp">
-    </SearchView>
-
-    <View style="@style/Separator"
-        android:id="@+id/separator"
-        android:layout_below="@id/searchView">
-    </View>
-
     <ListView
         android:id="@+id/food_list"
-        android:layout_below="@id/separator"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>
