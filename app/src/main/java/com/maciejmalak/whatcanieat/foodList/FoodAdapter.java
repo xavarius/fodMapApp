@@ -5,19 +5,23 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.maciejmalak.whatcanieat.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import butterknife.Bind;
 import butterknife.BindDrawable;
 import butterknife.ButterKnife;
 
-public class FoodAdapter extends ArrayAdapter {
+public class FoodAdapter extends BaseAdapter implements Filterable {
+
     @BindDrawable(R.drawable.circle_allowed)
     Drawable mAllowedIndicator;
     @BindDrawable(R.drawable.circle_disallowed)
@@ -25,8 +29,34 @@ public class FoodAdapter extends ArrayAdapter {
     @BindDrawable(R.drawable.circle_restricted)
     Drawable mRestrictedIndicator;
 
-    public FoodAdapter(final Context context, final ArrayList<FoodPojo> products) {
-        super(context, R.layout.product_row, products);
+    private ArrayList<FoodPojo> mList;
+    private FoodPojoFilter foodPojoFilter;
+
+    public FoodAdapter() {
+        mList = DataSetHelper.returnData();
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (foodPojoFilter == null) {
+            foodPojoFilter = new FoodPojoFilter();
+        }
+        return foodPojoFilter;
+    }
+
+    @Override
+    public int getCount() {
+        return mList.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return mList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
@@ -37,7 +67,7 @@ public class FoodAdapter extends ArrayAdapter {
 
         viewHolder.mTextView.setText(foodItem.getName());
 
-        if(foodItem.isAllowed() == 1) {
+        if (foodItem.isAllowed() == 1) {
             viewHolder.mImageView.setBackground(mAllowedIndicator);
         } else if (foodItem.isAllowed() == -1) {
             viewHolder.mImageView.setBackground(mDisallowedIndicator);
@@ -69,6 +99,39 @@ public class FoodAdapter extends ArrayAdapter {
 
         ViewHolder(final View convertView) {
             ButterKnife.bind(this, convertView);
+        }
+    }
+
+    private class FoodPojoFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            final FilterResults results = new FilterResults();
+
+            mList = DataSetHelper.returnData();
+
+            if (constraint == null || constraint.length() == 0) {
+                results.values = mList;
+                results.count = getCount();
+            } else {
+                final ArrayList<FoodPojo> filteredList = new ArrayList<>();
+
+                for (FoodPojo f : mList) {
+                    final String name = f.getName().toLowerCase();
+                    if(name.contains(constraint.toString().toLowerCase())) {
+                        filteredList.add(f);
+                    }
+                }
+
+                results.values = filteredList;
+                results.count = 0;
+            }
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mList = (ArrayList<FoodPojo>) results.values;
+            notifyDataSetChanged();
         }
     }
 }

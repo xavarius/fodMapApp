@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FodMap: Co mogę zjeść?</string>
+    <string name="navigation_drawer_close">Zamknij menu</string>
+    <string name="navigation_drawer_open">Otwórz menu</string>
+    <string name="search_hint">Szukaj składników i napojów</string>
+    <string name="search_menu_item">Szukaj</string>
+</resources>
