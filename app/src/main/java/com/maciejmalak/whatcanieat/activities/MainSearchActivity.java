@@ -28,6 +28,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /* TODO : What will I place in activity about fodmap and application itself? */
+/* TODO : Provide all info both in EN PL */
 /* TODO : Provide db - implement greendao as a model layer. */
 /* TODO : Choose color for app, especially for nav drawer. */
 /* TODO : Maybe "mini" nav drawer will be better option than regular(big) */
