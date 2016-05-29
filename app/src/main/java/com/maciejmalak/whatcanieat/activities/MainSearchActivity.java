@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -106,11 +107,15 @@ public class MainSearchActivity extends AppCompatActivity
     }
 
     private void initListView() {
-        mAdapter = new FoodAdapter();
         final ListView listView = (ListView) findViewById(R.id.food_list);
+
+        mAdapter = new FoodAdapter();
         listView.setAdapter(mAdapter);
 
         listView.setOnItemClickListener(mOnClickListener);
+
+        final ViewStub emptyListView = (ViewStub) findViewById(R.id.emptyListView);
+        listView.setEmptyView(emptyListView.inflate());
     }
 
     @Override

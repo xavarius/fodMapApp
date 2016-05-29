@@ -5,4 +5,6 @@
     <string name="navigation_drawer_open">Otwórz menu</string>
     <string name="search_hint">Szukaj składników i napojów</string>
     <string name="search_menu_item">Szukaj</string>
+    <string name="empty_list_text">Nasza lista nie zawiera wyszukiwanej przez Ciebie opcji!</string>
+    <string name="empty_list_header">Ups!</string>
 </resources>

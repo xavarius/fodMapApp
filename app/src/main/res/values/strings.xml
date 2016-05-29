@@ -5,4 +5,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="search_menu_item">Search</string>
     <string name="search_hint">Search for food and drinks</string>
+    <string name="empty_list_text">We were not able to find your selection!</string>
+    <string name="empty_list_header">Oops!</string>
 </resources>
