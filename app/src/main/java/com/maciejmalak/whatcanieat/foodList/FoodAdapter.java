@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.maciejmalak.whatcanieat.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import butterknife.Bind;
 import butterknife.BindDrawable;

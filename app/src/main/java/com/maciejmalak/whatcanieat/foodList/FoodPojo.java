@@ -3,6 +3,7 @@ package com.maciejmalak.whatcanieat.foodList;
 public class FoodPojo {
     private String mName;
     private String mCategory;
+    private String mDesc;
     private Short mIsAllowed;
 
     private FoodPojo() {}
@@ -11,6 +12,7 @@ public class FoodPojo {
                     final String isAllowed, final String desc) {
         mName = name;
         mCategory = category;
+        mDesc = desc;
         if (isAllowed.equals("Forbidden")) {
             mIsAllowed = -1;
         } else if (isAllowed.equals("Restricted")) {
@@ -27,6 +29,8 @@ public class FoodPojo {
     public String getCategory() {
         return mCategory;
     }
+
+    public String getDesc() { return mDesc; }
 
     public Short isAllowed() {
         return mIsAllowed;

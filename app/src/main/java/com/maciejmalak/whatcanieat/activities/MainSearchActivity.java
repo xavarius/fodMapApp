@@ -15,22 +15,24 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.maciejmalak.whatcanieat.R;
 import com.maciejmalak.whatcanieat.foodList.FoodAdapter;
+import com.maciejmalak.whatcanieat.foodList.FoodPojo;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/* TODO : W momencie kliknięcia restricted elementu pokazuje się Toast z ilością dozwoloną*/
-/* TODO : Wymyśleć co z 2x aktywność: coś o diecie fodmap oraz about krótkie */
-/* TODO : Stworzyć, wypełnić, obsłużyć DB*/
-/* TODO : Kolory w Drawer*/
-/*TODO: może mini nav drawer zamiast pełnego otwarcia? */
-/* TODO : Jeśli dodasz ProGuard dodaj wyjątek dla ButterKnife */
-/* TODO : Ikona appki*/
-/* TODO : Może jakieś śmieszne ikony do Drawera np zamiast lupki marchewka przy Search food etc. */
+/* TODO : What will I place in activity about fodmap and application itself? */
+/* TODO : Provide db - implement greendao as a model layer. */
+/* TODO : Choose color for app, especially for nav drawer. */
+/* TODO : Maybe "mini" nav drawer will be better option than regular(big) */
+/* TODO : Add exception for butterknife when adding Proguard. */
+/* TODO : Find someone who will help with preparing icon for application and icons for drawer. " */
 
 public class MainSearchActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,6 +58,15 @@ public class MainSearchActivity extends AppCompatActivity
         }
     };
 
+    private final AdapterView.OnItemClickListener mOnClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            FoodPojo item = (FoodPojo) mAdapter.getItem(position);
+            if (item.isAllowed() == 0 && !item.getDesc().isEmpty()) {
+                Toast.makeText(parent.getContext(), item.getDesc(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +108,8 @@ public class MainSearchActivity extends AppCompatActivity
         mAdapter = new FoodAdapter();
         final ListView listView = (ListView) findViewById(R.id.food_list);
         listView.setAdapter(mAdapter);
+
+        listView.setOnItemClickListener(mOnClickListener);
     }
 
     @Override
